@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 
+//@CrossOrigin
 @RestController
+@RequestMapping("tasks")
 public class TaskController {
     private final TaskService taskService;
 
@@ -20,19 +22,19 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping("/task")
+    @PostMapping
     public Task addTask(
             @RequestParam("taskName") String taskName,
             @RequestParam("taskDeadline") String taskDeadline) {
         return taskService.addTask(taskName, LocalDateTime.parse(taskDeadline));
     }
 
-    @GetMapping("/tasks")
+    @GetMapping
     public List<Task> getTasks() {
         return taskService.getTasks();
     }
 
-    @PutMapping("/task/{taskId}")
+    @PutMapping("/{taskId}")
     public void updateTask(
             @PathVariable("taskId") UUID taskId,
             @RequestParam("taskName") String taskName) {
@@ -40,7 +42,7 @@ public class TaskController {
         taskService.updateTaskName(taskId, taskName);
     }
 
-    @DeleteMapping("/tasks/{taskId}")
+    @DeleteMapping("/{taskId}")
     public boolean deleteTask(@PathVariable("taskId") UUID taskId) {
         return taskService.deleteTaskById(taskId);
     }
