@@ -9,8 +9,10 @@ function Tasks() {
     useEffect(() => { // This will happen on every component update. Similar to componentDidMount componentDidUpdate and componentWillUnmount combined.
         prepareAllTasks()
             .then(() => {
-                console.log(tasks)
-            });
+                console.log("tasks taken successfully")
+            }).catch(err => {
+                console.error("error", err)
+        });
     }, []);
 
     const prepareAllTasks = async () => {
@@ -33,7 +35,7 @@ function Tasks() {
                                  taskName={task.taskName}
                                  taskId={task.taskId}
                                  taskDeadline={task.taskDeadline}
-                                 deleteHandler={performDelete} />
+                                 deleteHandler={performDelete}/>
                 })}
             </div>
         </>
